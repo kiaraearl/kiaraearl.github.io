@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiara Earl | Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:     #1a0a2e;
+            --card:   #2d1b4e;
+            --accent: #b76e79;
+            --accent-dim: rgba(183,110,121,0.12);
+            --highlight: #c0622a;
+            --text:   #f0f0f0;
+            --text-muted: #9090a8;
+            --border: rgba(183,110,121,0.18);
+            --border-strong: rgba(183,110,121,0.38);
+            --mono:   'JetBrains Mono', monospace;
+        }
+
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html, body { height:100%; }
+        body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); display:flex; flex-direction:column; }
+        a { text-decoration:none; color:inherit; }
+
+        /* ── Top bar ── */
+        .topbar {
+            height:64px;
+            background:rgba(26,10,46,0.96);
+            backdrop-filter:blur(20px);
+            border-bottom:1px solid var(--border);
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0 24px;
+            flex-shrink:0;
+            position:sticky;
+            top:0;
+            z-index:100;
+        }
+        .topbar-left {
+            display:flex;
+            align-items:center;
+            gap:20px;
+        }
+        .back-btn {
+            display:inline-flex;
+            align-items:center;
+            gap:7px;
+            font-size:0.82rem;
+            font-weight:500;
+            color:var(--text-muted);
+            transition:color 0.2s ease;
+            padding:6px 0;
+        }
+        .back-btn:hover { color:var(--accent); }
+        .topbar-logo {
+            font-family:var(--mono);
+            font-size:0.95rem;
+            font-weight:600;
+            color:var(--accent);
+        }
+        .topbar-logo span { color:var(--text-muted); }
+        .topbar-title {
+            font-family:var(--mono);
+            font-size:0.75rem;
+            color:var(--text-muted);
+            letter-spacing:0.08em;
+            text-transform:uppercase;
+            border-left:1px solid var(--border);
+            padding-left:20px;
+        }
+        .topbar-actions {
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+        .btn-dl {
+            display:inline-flex;
+            align-items:center;
+            gap:7px;
+            padding:8px 18px;
+            border-radius:7px;
+            font-size:0.82rem;
+            font-weight:600;
+            background:linear-gradient(135deg,var(--accent),#8e4f59);
+            color:#fff;
+            border:1px solid transparent;
+            transition:all 0.25s ease;
+            cursor:pointer;
+        }
+        .btn-dl:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(183,110,121,0.35); }
+        .btn-port {
+            display:inline-flex;
+            align-items:center;
+            gap:7px;
+            padding:8px 18px;
+            border-radius:7px;
+            font-size:0.82rem;
+            font-weight:600;
+            background:transparent;
+            color:var(--accent);
+            border:1px solid var(--border-strong);
+            transition:all 0.25s ease;
+            cursor:pointer;
+        }
+        .btn-port:hover { background:var(--accent-dim); transform:translateY(-1px); }
+
+        /* ── PDF viewer ── */
+        .viewer-wrap {
+            flex:1;
+            display:flex;
+            flex-direction:column;
+            padding:24px;
+            gap:16px;
+            min-height:0;
+        }
+        .viewer-frame {
+            flex:1;
+            border-radius:10px;
+            border:1px solid var(--border);
+            overflow:hidden;
+            background:var(--card);
+            min-height:0;
+        }
+        .viewer-frame iframe {
+            width:100%;
+            height:100%;
+            border:none;
+            display:block;
+            min-height:600px;
+        }
+        .viewer-note {
+            text-align:center;
+            font-size:0.75rem;
+            color:var(--text-muted);
+            font-family:var(--mono);
+            padding-bottom:8px;
+        }
+        .viewer-note a { color:var(--accent); }
+
+        /* ── Mobile ── */
+        @media (max-width:600px) {
+            .topbar-title { display:none; }
+            .btn-port span { display:none; }
+            .viewer-wrap { padding:12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <div class="topbar-left">
+            <a href="index.html" class="back-btn">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                Back
+            </a>
+            <div class="topbar-logo">KE<span>.sec</span></div>
+            <div class="topbar-title">Resume</div>
+        </div>
+        <div class="topbar-actions">
+            <a href="index.html" class="btn-port">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span>Portfolio</span>
+            </a>
+            <a href="https://drive.google.com/uc?export=download&id=1L5t1m268Iuj8WPo_ClyJuQT0arc_Vq5s" class="btn-dl" target="_blank" rel="noopener">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download PDF
+            </a>
+        </div>
+    </div>
+
+    <div class="viewer-wrap">
+        <div class="viewer-frame">
+            <iframe
+                src="https://drive.google.com/file/d/1L5t1m268Iuj8WPo_ClyJuQT0arc_Vq5s/preview"
+                allow="autoplay"
+                title="Kiara Earl Resume">
+            </iframe>
+        </div>
+        <div class="viewer-note">
+            Can't see the preview? <a href="https://drive.google.com/file/d/1L5t1m268Iuj8WPo_ClyJuQT0arc_Vq5s/view?usp=sharing" target="_blank" rel="noopener">Open directly in Google Drive</a>
+        </div>
+    </div>
+
+</body>
+</html>

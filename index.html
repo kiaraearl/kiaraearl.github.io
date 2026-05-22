@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiara Earl — IT & Cybersecurity Portfolio. CompTIA A+ Certified | WGU Cybersecurity Student | Houston, TX.">
+    <title>Kiara Earl | IT & Cybersecurity Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES ===== */
+        :root {
+            --bg:            #1a0a2e;
+            --bg-secondary:  #120820;
+            --card:          #2d1b4e;
+            --card-hover:    #38236a;
+            --accent:        #b76e79;
+            --accent-dim:    rgba(183,110,121,0.12);
+            --highlight:     #c0622a;
+            --highlight-dim: rgba(192,98,42,0.12);
+            --text:          #f0f0f0;
+            --text-muted:    #9090a8;
+            --border:        rgba(183,110,121,0.18);
+            --border-strong: rgba(183,110,121,0.38);
+            --mono:          'JetBrains Mono', monospace;
+            --nav-h:         68px;
+            --radius:        12px;
+            --radius-sm:     6px;
+            --tr:            all 0.3s ease;
+        }
+
+        /* ===== RESET ===== */
+        *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; overflow-x:hidden; }
+        a { text-decoration:none; color:inherit; }
+        ul { list-style:none; }
+        button { cursor:pointer; border:none; background:none; font-family:inherit; }
+        ::-webkit-scrollbar { width:5px; }
+        ::-webkit-scrollbar-track { background:var(--bg); }
+        ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
+
+        /* ===== UTILITIES ===== */
+        .container { max-width:1100px; margin:0 auto; padding:0 24px; }
+        .section-label { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+        .section-title { font-size:clamp(1.8rem,4vw,2.6rem); font-weight:800; line-height:1.15; margin-bottom:14px; }
+        .section-title span { color:var(--accent); }
+        .section-subtitle { color:var(--text-muted); font-size:0.95rem; max-width:580px; margin-bottom:52px; }
+
+        /* Badges */
+        .badge { display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:20px; font-size:0.68rem; font-weight:600; font-family:var(--mono); letter-spacing:0.05em; text-transform:uppercase; }
+        .badge-progress { background:rgba(192,98,42,0.13); color:#e07840; border:1px solid rgba(192,98,42,0.28); }
+        .badge-planned  { background:rgba(183,110,121,0.13); color:var(--accent); border:1px solid rgba(183,110,121,0.28); }
+        .badge-earned   { background:rgba(40,160,100,0.13); color:#4dc98a; border:1px solid rgba(40,160,100,0.28); }
+        .badge-auto     { background:rgba(120,80,200,0.13); color:#a07de8; border:1px solid rgba(120,80,200,0.28); }
+        .badge-dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+        .badge-progress .badge-dot { animation:pulseDot 2s ease infinite; }
+        @keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.45;transform:scale(.65)} }
+
+        /* Buttons */
+        .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 26px; border-radius:8px; font-size:0.88rem; font-weight:600; transition:var(--tr); cursor:pointer; }
+        .btn-primary { background:linear-gradient(135deg,var(--accent),#8e4f59); color:#fff; border:1px solid transparent; }
+        .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(183,110,121,0.38); }
+        .btn-outline { background:transparent; color:var(--accent); border:1px solid var(--border-strong); }
+        .btn-outline:hover { background:var(--accent-dim); transform:translateY(-2px); }
+
+        /* Fade-up */
+        .fade-up { opacity:0; transform:translateY(28px); transition:opacity 0.6s ease,transform 0.6s ease; }
+        .fade-up.visible { opacity:1; transform:translateY(0); }
+
+        /* ===== NAVBAR ===== */
+        nav { position:fixed; top:0; left:0; right:0; height:var(--nav-h); z-index:1000; transition:var(--tr); }
+        nav.scrolled { background:rgba(26,10,46,0.94); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); box-shadow:0 4px 32px rgba(0,0,0,0.32); }
+        .nav-inner { display:flex; align-items:center; justify-content:space-between; height:100%; }
+        .nav-logo { font-family:var(--mono); font-size:1.05rem; font-weight:600; color:var(--accent); letter-spacing:0.04em; }
+        .nav-logo span { color:var(--text); }
+        .nav-links { display:flex; align-items:center; gap:28px; }
+        .nav-links a { font-size:0.82rem; font-weight:500; color:var(--text-muted); transition:var(--tr); position:relative; letter-spacing:0.02em; }
+        .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--accent); transition:width 0.3s ease; }
+        .nav-links a:hover,.nav-links a.active { color:var(--text); }
+        .nav-links a:hover::after,.nav-links a.active::after { width:100%; }
+        .nav-cta { font-size:0.78rem !important; color:var(--accent) !important; border:1px solid var(--border-strong); padding:6px 14px; border-radius:6px; transition:var(--tr); }
+        .nav-cta:hover { background:var(--accent-dim); }
+        .nav-cta::after { display:none !important; }
+
+        .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+        .hamburger span { display:block; width:22px; height:2px; background:var(--text); border-radius:2px; transition:var(--tr); }
+        .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity:0; }
+        .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu { display:none; position:fixed; top:var(--nav-h); left:0; right:0; background:rgba(26,10,46,0.97); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); padding:20px 24px; flex-direction:column; gap:4px; z-index:999; }
+        .mobile-menu.open { display:flex; }
+        .mobile-menu a { font-size:0.95rem; font-weight:500; color:var(--text-muted); padding:12px 0; border-bottom:1px solid var(--border); transition:var(--tr); }
+        .mobile-menu a:last-child { border-bottom:none; }
+        .mobile-menu a:hover { color:var(--accent); padding-left:10px; }
+
+        /* ===== HERO ===== */
+        #hero { min-height:100vh; display:flex; align-items:center; position:relative; overflow:hidden; padding-top:var(--nav-h); }
+        .hero-bg { position:absolute; inset:0; pointer-events:none; background: radial-gradient(ellipse 75% 55% at 15% 30%, rgba(183,110,121,0.14) 0%, transparent 60%), radial-gradient(ellipse 55% 40% at 82% 72%, rgba(192,98,42,0.09) 0%, transparent 60%); }
+        .hero-grid { position:absolute; inset:0; pointer-events:none; background-image: linear-gradient(rgba(183,110,121,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(183,110,121,0.045) 1px, transparent 1px); background-size:52px 52px; }
+        .hero-content { position:relative; z-index:1; max-width:760px; }
+
+        .hero-tag { display:inline-flex; align-items:center; gap:8px; background:var(--accent-dim); border:1px solid var(--border); border-radius:20px; padding:6px 16px; font-family:var(--mono); font-size:0.72rem; color:var(--accent); letter-spacing:0.1em; margin-bottom:24px; }
+        .hero-tag-dot { width:6px; height:6px; background:var(--accent); border-radius:50%; animation:pulseDot 2s ease infinite; }
+
+        .hero-name { font-size:clamp(2.6rem,7.5vw,4.8rem); font-weight:800; line-height:1.0; letter-spacing:-0.025em; margin-bottom:18px; }
+        .hero-name .accent { color:var(--accent); }
+
+        .hero-subtitle { font-family:var(--mono); font-size:clamp(0.95rem,2.2vw,1.22rem); color:var(--text-muted); margin-bottom:26px; min-height:2em; }
+        .cursor { display:inline-block; width:2px; height:1em; background:var(--accent); margin-left:2px; vertical-align:middle; animation:blink 1s step-end infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        .hero-about { font-size:0.97rem; color:var(--text-muted); max-width:600px; line-height:1.82; margin-bottom:40px; padding:18px 22px; background:var(--accent-dim); border-left:3px solid var(--accent); border-radius:0 var(--radius-sm) var(--radius-sm) 0; }
+        .hero-about em { color:var(--accent); font-style:normal; font-weight:600; }
+
+        .hero-buttons { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px; }
+        .hero-socials { display:flex; align-items:center; gap:8px; }
+        .hero-socials-label { font-family:var(--mono); font-size:0.68rem; color:var(--text-muted); letter-spacing:0.1em; margin-right:6px; }
+        .social-btn { display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:8px; border:1px solid var(--border); color:var(--text-muted); transition:var(--tr); }
+        .social-btn:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); transform:translateY(-3px); }
+
+        .hero-scroll { position:absolute; bottom:30px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--text-muted); font-size:0.66rem; font-family:var(--mono); letter-spacing:0.12em; }
+        .scroll-caret { width:18px; height:18px; border-right:2px solid var(--text-muted); border-bottom:2px solid var(--text-muted); transform:rotate(45deg); animation:caretBounce 2s ease infinite; }
+        @keyframes caretBounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(5px)} }
+
+        /* ===== SECTION BASE ===== */
+        section { padding:96px 0; }
+
+        /* ===== CERTIFICATIONS ===== */
+        .certs-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(275px,1fr)); gap:18px; }
+        .cert-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:26px; display:flex; gap:18px; align-items:flex-start; transition:var(--tr); position:relative; overflow:hidden; }
+        .cert-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent),var(--highlight)); opacity:0; transition:opacity 0.3s ease; }
+        .cert-card:hover { border-color:var(--border-strong); background:var(--card-hover); transform:translateY(-4px); box-shadow:0 14px 42px rgba(0,0,0,0.32); }
+        .cert-card:hover::before { opacity:1; }
+        .cert-icon { width:48px; height:48px; border-radius:10px; background:var(--accent-dim); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1.35rem; flex-shrink:0; }
+        .cert-org { font-family:var(--mono); font-size:0.68rem; color:var(--text-muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:5px; }
+        .cert-name { font-size:0.97rem; font-weight:600; color:var(--text); margin-bottom:8px; line-height:1.3; }
+        .cert-note { font-size:0.75rem; color:var(--text-muted); margin-bottom:10px; font-style:italic; }
+        .cert-meta { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+        .cert-date { font-size:0.72rem; color:var(--text-muted); font-family:var(--mono); }
+
+        /* ===== SKILLS ===== */
+        .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(255px,1fr)); gap:20px; }
+        .skill-cat { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:26px; transition:var(--tr); }
+        .skill-cat:hover { border-color:var(--border-strong); transform:translateY(-3px); }
+        .skill-cat-hd { display:flex; align-items:center; gap:11px; margin-bottom:18px; }
+        .skill-cat-ico { width:34px; height:34px; border-radius:8px; background:var(--accent-dim); display:flex; align-items:center; justify-content:center; font-size:0.95rem; }
+        .skill-cat-name { font-size:0.88rem; font-weight:600; color:var(--text); }
+        .skill-tags { display:flex; flex-wrap:wrap; gap:7px; }
+        .skill-tag { background:rgba(255,255,255,0.046); border:1px solid rgba(255,255,255,0.076); border-radius:5px; padding:5px 11px; font-size:0.76rem; color:var(--text-muted); transition:var(--tr); font-family:var(--mono); }
+        .skill-tag:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); }
+
+        /* ===== PROJECTS ===== */
+        .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:22px; margin-bottom:56px; }
+        .project-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:26px; display:flex; flex-direction:column; transition:var(--tr); position:relative; overflow:hidden; }
+        .project-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent),var(--highlight)); transform:scaleX(0); transition:transform 0.3s ease; }
+        .project-card:hover { border-color:var(--border-strong); background:var(--card-hover); transform:translateY(-5px); box-shadow:0 18px 52px rgba(0,0,0,0.36); }
+        .project-card:hover::after { transform:scaleX(1); }
+
+        .project-hd { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px; }
+        .project-ico { font-size:2rem; }
+        .proj-links { display:flex; gap:7px; align-items:center; }
+        .proj-link { width:30px; height:30px; border-radius:6px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-size:0.78rem; transition:var(--tr); }
+        .proj-link:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); }
+        .proj-link.soon { opacity:0.35; cursor:default; pointer-events:none; }
+        .soon-badge { font-family:var(--mono); font-size:0.62rem; color:var(--text-muted); border:1px solid rgba(255,255,255,0.1); border-radius:4px; padding:2px 7px; opacity:0.6; }
+
+        .project-name { font-size:1.06rem; font-weight:700; color:var(--text); margin-bottom:4px; }
+        .project-type { font-family:var(--mono); font-size:0.7rem; color:var(--text-muted); margin-bottom:10px; letter-spacing:0.04em; }
+        .project-desc { font-size:0.86rem; color:var(--text-muted); line-height:1.72; margin-bottom:14px; flex:1; }
+        .project-features { margin-bottom:16px; }
+        .project-features-title { font-size:0.75rem; font-weight:600; color:var(--text); margin-bottom:7px; text-transform:uppercase; letter-spacing:0.06em; font-family:var(--mono); }
+        .project-features ul { display:flex; flex-direction:column; gap:5px; }
+        .project-features li { font-size:0.8rem; color:var(--text-muted); padding-left:14px; position:relative; line-height:1.5; }
+        .project-features li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-size:0.7rem; top:2px; }
+        .project-tags { display:flex; flex-wrap:wrap; gap:7px; }
+        .ptag { background:var(--accent-dim); color:var(--accent); border:1px solid rgba(183,110,121,0.2); border-radius:4px; padding:3px 9px; font-size:0.7rem; font-family:var(--mono); font-weight:500; }
+        .ptag.orange { background:var(--highlight-dim); color:#e07840; border-color:rgba(192,98,42,0.2); }
+
+        /* Home Lab */
+        .lab-title { display:flex; align-items:center; gap:12px; font-size:1.05rem; font-weight:600; color:var(--text); margin-bottom:20px; }
+        .lab-title::before { content:''; display:block; width:3px; height:18px; background:var(--highlight); border-radius:2px; }
+        .lab-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; }
+        .lab-card { background:rgba(192,98,42,0.05); border:1px solid rgba(192,98,42,0.14); border-radius:var(--radius); padding:18px; display:flex; gap:14px; align-items:flex-start; transition:var(--tr); }
+        .lab-card:hover { border-color:rgba(192,98,42,0.34); background:rgba(192,98,42,0.09); transform:translateY(-3px); }
+        .lab-ico { font-size:1.45rem; flex-shrink:0; }
+        .lab-name { font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:5px; }
+        .lab-desc { font-size:0.78rem; color:var(--text-muted); line-height:1.62; }
+
+        /* ===== TIMELINE ===== */
+        .timeline { position:relative; padding-left:30px; }
+        .timeline::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width:2px; background:linear-gradient(to bottom,var(--accent),var(--highlight),transparent); border-radius:2px; }
+        .tl-item { position:relative; padding-bottom:44px; }
+        .tl-item:last-child { padding-bottom:0; }
+        .tl-dot { position:absolute; left:-37px; top:6px; width:13px; height:13px; border-radius:50%; background:var(--accent); border:3px solid var(--bg); box-shadow:0 0 0 2px var(--accent); }
+        .tl-dot.orange { background:var(--highlight); box-shadow:0 0 0 2px var(--highlight); }
+        .tl-period { font-family:var(--mono); font-size:0.7rem; color:var(--accent); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:7px; }
+        .tl-period.orange { color:#e07840; }
+        .tl-role { font-size:1.06rem; font-weight:700; color:var(--text); margin-bottom:3px; }
+        .tl-org { font-size:0.83rem; color:var(--accent); font-weight:500; margin-bottom:11px; }
+        .tl-org.orange { color:#e07840; }
+        .tl-desc { font-size:0.85rem; color:var(--text-muted); line-height:1.72; }
+        .tl-desc li { position:relative; padding-left:16px; margin-bottom:5px; }
+        .tl-desc li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-size:0.72rem; top:2px; }
+
+        /* ===== ROADMAP ===== */
+        .roadmap-wrap { overflow-x:auto; border-radius:var(--radius); border:1px solid var(--border); }
+        .roadmap-table { width:100%; border-collapse:collapse; background:var(--card); }
+        .roadmap-table th { padding:14px 16px; text-align:left; font-family:var(--mono); font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); border-bottom:1px solid var(--border); background:rgba(183,110,121,0.048); white-space:nowrap; }
+        .roadmap-table td { padding:13px 16px; font-size:0.84rem; color:var(--text); border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; }
+        .roadmap-table tr:last-child td { border-bottom:none; }
+        .roadmap-table tr:hover td { background:rgba(255,255,255,0.018); }
+        .phase-num { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:var(--accent-dim); border:1px solid var(--border); color:var(--accent); font-family:var(--mono); font-size:0.72rem; font-weight:600; }
+        .rm-goal { font-weight:600; }
+        .rm-sub { font-size:0.75rem; color:var(--text-muted); margin-top:2px; }
+        .roadmap-note { margin-top:16px; font-size:0.8rem; color:var(--text-muted); padding:12px 16px; background:rgba(120,80,200,0.07); border:1px solid rgba(120,80,200,0.18); border-radius:var(--radius-sm); font-family:var(--mono); }
+        .roadmap-note span { color:#a07de8; }
+
+        /* ===== CONTACT ===== */
+        .contact-grid { display:grid; grid-template-columns:1fr 1.45fr; gap:56px; align-items:start; }
+        .contact-info h3 { font-size:1.45rem; font-weight:700; margin-bottom:14px; }
+        .contact-info p { color:var(--text-muted); font-size:0.9rem; line-height:1.82; margin-bottom:24px; }
+        .open-to { margin-bottom:28px; }
+        .open-to-label { font-family:var(--mono); font-size:0.68rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px; }
+        .open-to-chips { display:flex; flex-wrap:wrap; gap:8px; }
+        .open-chip { background:rgba(192,98,42,0.1); border:1px solid rgba(192,98,42,0.22); border-radius:20px; padding:5px 13px; font-size:0.75rem; color:#e07840; font-weight:500; }
+        .contact-items { display:flex; flex-direction:column; gap:14px; }
+        .ci { display:flex; align-items:center; gap:13px; }
+        .ci-ico { width:38px; height:38px; border-radius:8px; background:var(--accent-dim); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:0.85rem; flex-shrink:0; }
+        .ci-label { font-family:var(--mono); font-size:0.66rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:2px; }
+        .ci-val { font-size:0.86rem; color:var(--text); }
+        .ci-val a { color:var(--accent); }
+        .contact-form { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:34px; }
+        .fg { margin-bottom:18px; }
+        .fl { display:block; font-family:var(--mono); font-size:0.68rem; color:var(--text-muted); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:7px; }
+        .fi,.ft { width:100%; background:rgba(255,255,255,0.038); border:1px solid var(--border); border-radius:8px; padding:11px 15px; color:var(--text); font-family:'Inter',sans-serif; font-size:0.88rem; transition:var(--tr); outline:none; }
+        .fi::placeholder,.ft::placeholder { color:rgba(144,144,168,0.46); }
+        .fi:focus,.ft:focus { border-color:var(--accent); background:rgba(183,110,121,0.046); box-shadow:0 0 0 3px rgba(183,110,121,0.1); }
+        .ft { resize:vertical; min-height:130px; }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+        /* ===== FOOTER ===== */
+        footer { padding:38px 0; border-top:1px solid var(--border); background:var(--bg-secondary); }
+        .footer-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
+        .footer-logo { font-family:var(--mono); font-size:0.88rem; color:var(--accent); }
+        .footer-txt { font-size:0.76rem; color:var(--text-muted); }
+        .footer-socials { display:flex; gap:7px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width:900px) { .contact-grid { grid-template-columns:1fr; gap:38px; } }
+        @media (max-width:768px) {
+            section { padding:68px 0; }
+            .nav-links { display:none; }
+            .hamburger { display:flex; }
+            .hero-buttons { flex-direction:column; align-items:flex-start; }
+            .timeline { padding-left:22px; }
+            .tl-dot { left:-29px; }
+            .footer-inner { flex-direction:column; align-items:center; text-align:center; }
+        }
+        @media (max-width:480px) {
+            .certs-grid,.skills-grid,.projects-grid,.lab-grid { grid-template-columns:1fr; }
+            .contact-form { padding:22px; }
+            .form-row { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+    <div class="container nav-inner">
+        <div class="nav-logo">KE<span>.sec</span></div>
+        <ul class="nav-links">
+            <li><a href="#certifications">Certs</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#certifications" class="mob-link">Certifications</a>
+    <a href="#skills" class="mob-link">Skills</a>
+    <a href="#projects" class="mob-link">Projects</a>
+    <a href="#experience" class="mob-link">Experience</a>
+    <a href="#roadmap" class="mob-link">Roadmap</a>
+    <a href="resume.html" class="mob-link">Resume</a>
+    <a href="#contact" class="mob-link">Contact</a>
+</div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-tag">
+                <div class="hero-tag-dot"></div>
+                Open to Entry-Level IT &amp; Cybersecurity Roles
+            </div>
+            <h1 class="hero-name">
+                Kiara<br><span class="accent">Earl</span>
+            </h1>
+            <div class="hero-subtitle">
+                <span id="typewriter"></span><span class="cursor"></span>
+            </div>
+            <div class="hero-about">
+                I'm an IT and cybersecurity professional based in Houston, TX, actively transitioning into the field through hands-on projects, automation development, and formal education. I hold a <em>CompTIA A+ certification</em>, am pursuing a <em>B.S. in Cybersecurity and Information Assurance at WGU</em>, and bring real-world experience in technical support, incident response, and Python-based automation. I build things that solve real problems — and I document everything.
+            </div>
+            <div class="hero-buttons">
+                <a href="resume.html" class="btn btn-primary">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download Resume
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    Contact Me
+                </a>
+            </div>
+            <div class="hero-socials">
+                <span class="hero-socials-label">Find me →</span>
+                <a href="https://github.com/kiaraearl" target="_blank" rel="noopener" class="social-btn" title="GitHub" aria-label="GitHub">
+                    <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/kiaraearl/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn" aria-label="LinkedIn">
+                    <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+                <a href="mailto:kimearls24@outlook.com" class="social-btn" title="Email" aria-label="Email">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll"><span>scroll</span><div class="scroll-caret"></div></div>
+</section>
+
+<!-- ═══════════ CERTIFICATIONS ═══════════ -->
+<section id="certifications">
+    <div class="container">
+        <div class="section-header fade-up">
+            <p class="section-label">// credentials</p>
+            <h2 class="section-title">Certifications & <span>Education</span></h2>
+            <p class="section-subtitle">Certified, enrolled, and actively building — every credential here is earned or in motion.</p>
+        </div>
+        <div class="certs-grid">
+            <div class="cert-card fade-up">
+                <div class="cert-icon">🏆</div>
+                <div>
+                    <div class="cert-org">CompTIA</div>
+                    <div class="cert-name">CompTIA A+</div>
+                    <div class="cert-note">Core 1 &amp; Core 2 — passed both on the same day</div>
+                    <div class="cert-meta">
+                        <span class="badge badge-earned"><span class="badge-dot"></span>Earned</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cert-card fade-up">
+                <div class="cert-icon">📋</div>
+                <div>
+                    <div class="cert-org">State of Texas</div>
+                    <div class="cert-name">Personal Lines Insurance License</div>
+                    <div class="cert-meta">
+                        <span class="badge badge-earned"><span class="badge-dot"></span>Licensed</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cert-card fade-up">
+                <div class="cert-icon">🌐</div>
+                <div>
+                    <div class="cert-org">CompTIA</div>
+                    <div class="cert-name">Network+ (N10-009)</div>
+                    <div class="cert-meta">
+                        <span class="badge badge-progress"><span class="badge-dot"></span>In Progress</span>
+                        <span class="cert-date">Target: 2026</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cert-card fade-up">
+                <div class="cert-icon">🎓</div>
+                <div>
+                    <div class="cert-org">Western Governors University</div>
+                    <div class="cert-name">B.S. Cybersecurity &amp; Information Assurance</div>
+                    <div class="cert-note">Includes 17 industry certifications at no additional cost</div>
+                    <div class="cert-meta">
+                        <span class="badge badge-progress"><span class="badge-dot"></span>Enrolled</span>
+                        <span class="cert-date">Expected 2027</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ SKILLS ═══════════ -->
+<section id="skills">
+    <div class="container">
+        <div class="section-header fade-up">
+            <p class="section-label">// capabilities</p>
+            <h2 class="section-title">Technical <span>Skills</span></h2>
+            <p class="section-subtitle">Built through certification study, real incident response, hands-on hardware work, and live project development.</p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-cat fade-up">
+                <div class="skill-cat-hd"><div class="skill-cat-ico">🖥️</div><div class="skill-cat-name">Operating Systems</div></div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Windows 10/11</span><span class="skill-tag">Windows Server</span>
+                    <span class="skill-tag">Ubuntu Linux</span><span class="skill-tag">Linux CLI</span><span class="skill-tag">macOS</span>
+                </div>
+            </div>
+            <div class="skill-cat fade-up">
+                <div class="skill-cat-hd"><div class="skill-cat-ico">🔧</div><div class="skill-cat-name">Hardware</div></div>
+                <div class="skill-tags">
+                    <span class="skill-tag">PC Assembly</span><span class="skill-tag">Component Diagnostics</span>
+                    <span class="skill-tag">Peripheral Troubleshooting</span><span class="skill-tag">Printer / Display Config</span><span class="skill-tag">PCPartPicker</span>
+                </div>
+            </div>
+            <div class="skill-cat fade-up">
+                <div class="skill-cat-hd"><div class="skill-cat-ico">🌐</div><div class="skill-cat-name">Networking</div></div>
+                <div class="skill-tags">
+                    <span class="skill-tag">TCP/IP</span><span class="skill-tag">DNS</span><span class="skill-tag">DHCP</span>
+                    <span class="skill-tag">SOHO Configuration</span><span class="skill-tag">Subnetting</span>
+                    <span class="skill-tag">VPN Concepts</span><span class="skill-tag">WPA2 / WPA3</span>
+                </div>
+            </div>
+            <div class="skill-cat fade-up">
+                <div class="skill-cat-hd"><div class="skill-cat-ico">🔐</div><div class="skill-cat-name">Security</div></div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Malware Detection</span><span class="skill-tag">Endpoint Remediation</span>
+                    <span class="skill-tag">Incident Response (PICERL)</span><span class="skill-tag">BitLocker Encryption</span>
+                    <span class="skill-tag">Safe Mode Recovery</span><span class="skill-tag">RAT Removal</span><span class="skill-tag">MITRE ATT&amp;CK</span>
+                </div>
+            </div>
+            <div class="skill-cat fade-up">
+                <div class="skill-cat-hd"><div class="skill-cat-ico">💻</div><div class="skill-cat-name">Programming &amp; Automation</div></div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span><span class="skill-tag">Flask</span><span class="skill-tag">REST APIs</span>
+                    <span class="skill-tag">JSON</span><span class="skill-tag">API Integration</span><span class="skill-tag">Automation Pipelines</span>
+                </div>
+            </div>
+            <div class="skill-cat fade-up">
+                <div class="skill-cat-hd"><div class="skill-cat-ico">🛠️</div><div class="skill-cat-name">Tools &amp; Platforms</div></div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Apify</span><span class="skill-tag">Claude API</span><span class="skill-tag">Malwarebytes</span>
+                    <span class="skill-tag">VirtualBox</span><span class="skill-tag">Packet Tracer</span>
+                    <span class="skill-tag">Git / GitHub</span><span class="skill-tag">osTicket (planned)</span>
+                </div>
+            </div>
+            <div class="skill-cat fade-up">
+                <div class="skill-cat-hd"><div class="skill-cat-ico">📝</div><div class="skill-cat-name">Professional</div></div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Technical Documentation</span><span class="skill-tag">SOP Writing</span>
+                    <span class="skill-tag">Customer-Facing Support</span><span class="skill-tag">Regulatory Compliance</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ PROJECTS ═══════════ -->
+<section id="projects">
+    <div class="container">
+        <div class="section-header fade-up">
+            <p class="section-label">// work</p>
+            <h2 class="section-title">Projects & <span>Home Lab</span></h2>
+            <p class="section-subtitle">Real tools built from scratch and a growing home lab — everything documented, nothing theoretical.</p>
+        </div>
+
+        <div class="projects-grid">
+
+            <!-- Journey Rema Sage -->
+            <div class="project-card fade-up">
+                <div class="project-hd">
+                    <div class="project-ico">🔧</div>
+                    <div class="proj-links">
+                        <a href="https://github.com/kiaraearl/journey-rema-sage" target="_blank" rel="noopener" class="proj-link" title="View on GitHub" aria-label="GitHub">
+                            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-name">Journey, Rema &amp; Sage</div>
+                <div class="project-type">Python · Automation · API Integration · Flask</div>
+                <div class="project-desc">Fully automated job search pipeline that ingests listings from Apify, Adzuna, JSearch/RapidAPI, and USAJobs, scores them against a custom rubric, and auto-generates tailored resumes and cover letters for high-scoring roles using Claude AI.</div>
+                <div class="project-features">
+                    <div class="project-features-title">Key Features</div>
+                    <ul>
+                        <li>Dual-track scoring: IT/Cybersecurity (AI-scored ≥7) and Remote Income (100-pt rule-based rubric)</li>
+                        <li>Automated resume tailoring against a master resume JSON</li>
+                        <li>Legitimacy scoring to filter scam and low-quality listings</li>
+                        <li>300+ roles tracked, ~15 applications submitted</li>
+                        <li>Modular architecture: orchestrator, ingestion, scoring, generation, and dashboard layers</li>
+                    </ul>
+                </div>
+                <div class="project-tags">
+                    <span class="ptag">Python</span><span class="ptag">Flask</span><span class="ptag">Claude API</span>
+                    <span class="ptag orange">Scam Detection</span><span class="ptag">REST APIs</span><span class="ptag">Apify</span>
+                </div>
+            </div>
+
+            <!-- ClickFix IR -->
+            <div class="project-card fade-up">
+                <div class="project-hd">
+                    <div class="project-ico">🛡️</div>
+                    <div class="proj-links">
+                        <div class="proj-link soon" title="Coming soon" aria-label="Coming soon">
+                            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <span class="soon-badge">Soon</span>
+                    </div>
+                </div>
+                <div class="project-name">ClickFix RAT — Incident Response</div>
+                <div class="project-type">Cybersecurity · Incident Response · Malware Remediation</div>
+                <div class="project-desc">Detected, contained, and remediated a NetSupport Manager RAT infection (ClickFix delivery method) on a personal Windows system. Conducted the full IR lifecycle independently using the PICERL framework.</div>
+                <div class="project-features">
+                    <div class="project-features-title">IR Steps Taken</div>
+                    <ul>
+                        <li>Identified suspicious process: client32.exe at C:\ProgramData\Ceobenika\Burmastev2\</li>
+                        <li>Booted into Safe Mode to bypass active persistence</li>
+                        <li>Ran Malwarebytes full scan and manually deleted residual artifacts</li>
+                        <li>Mapped attack vector to MITRE ATT&amp;CK T1204.002</li>
+                        <li>Documented full incident timeline and hardening steps (BitLocker, system reset)</li>
+                    </ul>
+                </div>
+                <div class="project-tags">
+                    <span class="ptag orange">Real Incident</span><span class="ptag">PICERL Framework</span>
+                    <span class="ptag">MITRE ATT&amp;CK</span><span class="ptag">Malwarebytes</span><span class="ptag">Documentation</span>
+                </div>
+            </div>
+
+            <!-- Custom PC Build -->
+            <div class="project-card fade-up">
+                <div class="project-hd">
+                    <div class="project-ico">🖥️</div>
+                    <div class="proj-links">
+                        <div class="proj-link soon" title="Coming soon" aria-label="Coming soon">
+                            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <span class="soon-badge">Soon</span>
+                    </div>
+                </div>
+                <div class="project-name">Custom ATX PC Build</div>
+                <div class="project-type">Hardware · CompTIA A+ Applied · Documentation</div>
+                <div class="project-desc">Self-built a custom ATX desktop in 2024, applying CompTIA A+ hardware knowledge hands-on. Researched and verified component compatibility via PCPartPicker before purchase — from bare parts to a fully operational Windows 11 Pro workstation.</div>
+                <div class="project-features">
+                    <div class="project-features-title">Build Specs</div>
+                    <ul>
+                        <li>Intel i7-12700K · MSI PRO B760-P WiFi DDR4</li>
+                        <li>32GB DDR4 · AMD Radeon RX 7900 XT</li>
+                        <li>Samsung 990 Pro 1TB NVMe · Corsair RM850x 850W</li>
+                        <li>ID-Cooling AIO · Hyte Y70 ATX · Windows 11 Pro</li>
+                    </ul>
+                </div>
+                <div class="project-tags">
+                    <span class="ptag">Hardware</span><span class="ptag">A+ Applied</span>
+                    <span class="ptag orange">Self-Built</span><span class="ptag">Windows 11 Pro</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Home Lab -->
+        <div class="fade-up">
+            <div class="lab-title">Home Lab — In Progress</div>
+            <div class="lab-grid">
+                <div class="lab-card">
+                    <div class="lab-ico">🖥️</div>
+                    <div>
+                        <div class="lab-name">VirtualBox Environment</div>
+                        <div class="lab-desc">Building a personal cybersecurity lab with VirtualBox. Planned VMs include pfSense firewall, Ubuntu Server, and Windows Server for hands-on OS, networking, and security practice.</div>
+                    </div>
+                </div>
+                <div class="lab-card">
+                    <div class="lab-ico">🔥</div>
+                    <div>
+                        <div class="lab-name">pfSense Firewall VM</div>
+                        <div class="lab-desc">Planned: deploy pfSense as a virtual firewall to practice network segmentation, traffic filtering rules, and VLAN configuration in a safe isolated environment.</div>
+                    </div>
+                </div>
+                <div class="lab-card">
+                    <div class="lab-ico">🎯</div>
+                    <div>
+                        <div class="lab-name">TryHackMe &amp; Packet Tracer</div>
+                        <div class="lab-desc">Working through the Pre-Security and SOC Level 1 paths on TryHackMe. Using Cisco Packet Tracer alongside Network+ studies for simulated network configuration practice.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ EXPERIENCE ═══════════ -->
+<section id="experience">
+    <div class="container">
+        <div class="section-header fade-up">
+            <p class="section-label">// background</p>
+            <h2 class="section-title">Background & <span>Experience</span></h2>
+            <p class="section-subtitle">Customer-facing technical support, regulatory compliance, and enterprise IT exposure — all feeding directly into cybersecurity.</p>
+        </div>
+        <div class="timeline fade-up">
+
+            <div class="tl-item">
+                <div class="tl-dot"></div>
+                <div class="tl-period">April 2025 – Present</div>
+                <div class="tl-role">Multi-Product Agent</div>
+                <div class="tl-org">Progressive Insurance · Houston, TX</div>
+                <div class="tl-desc"><ul>
+                    <li>Handle personal lines insurance across multiple product lines in a high-volume environment</li>
+                    <li>Licensed Personal Lines agent — regulatory compliance and data handling daily</li>
+                    <li>Shadowing Progressive's IT Service Desk for hands-on enterprise IT exposure</li>
+                </ul></div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-dot orange"></div>
+                <div class="tl-period orange">April 2022 – April 2024</div>
+                <div class="tl-role">Technical Support Representative</div>
+                <div class="tl-org orange">World Travel Holdings · Remote</div>
+                <div class="tl-desc"><ul>
+                    <li>Dedicated technical support capacity for ~5 months within the role</li>
+                    <li>Assisted customers and internal staff with platform and connectivity troubleshooting</li>
+                    <li>Balanced technical support duties with customer service functions in a remote environment</li>
+                </ul></div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-dot orange"></div>
+                <div class="tl-period orange">September 2021 – April 2022</div>
+                <div class="tl-role">Sales &amp; Customer Service</div>
+                <div class="tl-org orange">Bluegreen Vacations · Houston, TX</div>
+                <div class="tl-desc"><ul>
+                    <li>Customer-facing sales and service role in a fast-paced environment</li>
+                    <li>Built foundational communication, de-escalation, and client management skills</li>
+                </ul></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ LEARNING ROADMAP ═══════════ -->
+<section id="roadmap">
+    <div class="container">
+        <div class="section-header fade-up">
+            <p class="section-label">// trajectory</p>
+            <h2 class="section-title">Learning <span>Roadmap</span></h2>
+            <p class="section-subtitle">17 certifications. One degree. A clear path from A+ to advanced security — all built into the WGU program.</p>
+        </div>
+        <div class="roadmap-wrap fade-up">
+            <table class="roadmap-table">
+                <thead>
+                    <tr>
+                        <th style="width:46px">#</th>
+                        <th>Certification / Goal</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="phase-num">1</span></td>
+                        <td><div class="rm-goal">CompTIA A+ (Core 1 &amp; Core 2)</div><div class="rm-sub">Passed both exams on the same day</div></td>
+                        <td><span class="badge badge-earned"><span class="badge-dot"></span>Complete</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">2</span></td>
+                        <td><div class="rm-goal">CompTIA Network+</div><div class="rm-sub">Networking fundamentals, protocols, architecture</div></td>
+                        <td><span class="badge badge-progress"><span class="badge-dot"></span>In Progress</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">3</span></td>
+                        <td><div class="rm-goal">ITIL® 4 Foundation</div><div class="rm-sub">IT service management framework</div></td>
+                        <td><span class="badge badge-planned"><span class="badge-dot"></span>Planned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">4</span></td>
+                        <td><div class="rm-goal">CompTIA Security+</div><div class="rm-sub">Threats, cryptography, risk management, IAM</div></td>
+                        <td><span class="badge badge-planned"><span class="badge-dot"></span>Planned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">5</span></td>
+                        <td><div class="rm-goal">CompTIA Project+</div><div class="rm-sub">IT project management fundamentals</div></td>
+                        <td><span class="badge badge-planned"><span class="badge-dot"></span>Planned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">6</span></td>
+                        <td><div class="rm-goal">LPI Linux Essentials</div><div class="rm-sub">Linux fundamentals and open-source concepts</div></td>
+                        <td><span class="badge badge-planned"><span class="badge-dot"></span>Planned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">7</span></td>
+                        <td><div class="rm-goal">CompTIA Data+</div><div class="rm-sub">Data concepts, mining, visualization, governance</div></td>
+                        <td><span class="badge badge-planned"><span class="badge-dot"></span>Planned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">8</span></td>
+                        <td><div class="rm-goal">CompTIA CySA+</div><div class="rm-sub">Cybersecurity analyst — threat detection &amp; response</div></td>
+                        <td><span class="badge badge-planned"><span class="badge-dot"></span>Planned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">9</span></td>
+                        <td><div class="rm-goal">CompTIA IT Operations Specialist</div><div class="rm-sub">Stackable — auto-earned: A+ + Network+ + Project+</div></td>
+                        <td><span class="badge badge-auto"><span class="badge-dot"></span>Auto-Earned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">10</span></td>
+                        <td><div class="rm-goal">CompTIA Network Vulnerability Assessment Professional</div><div class="rm-sub">Stackable — auto-earned: Network+ + Security+ + CySA+</div></td>
+                        <td><span class="badge badge-auto"><span class="badge-dot"></span>Auto-Earned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">11</span></td>
+                        <td><div class="rm-goal">CompTIA Network Security Professional</div><div class="rm-sub">Stackable — auto-earned: Network+ + Security+ + PenTest+</div></td>
+                        <td><span class="badge badge-auto"><span class="badge-dot"></span>Auto-Earned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">12</span></td>
+                        <td><div class="rm-goal">CompTIA Secure Infrastructure Specialist</div><div class="rm-sub">Stackable — auto-earned: A+ + Network+ + Security+</div></td>
+                        <td><span class="badge badge-auto"><span class="badge-dot"></span>Auto-Earned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">13</span></td>
+                        <td><div class="rm-goal">CompTIA Security Analytics Professional</div><div class="rm-sub">Stackable — auto-earned: Security+ + CySA+</div></td>
+                        <td><span class="badge badge-auto"><span class="badge-dot"></span>Auto-Earned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">14</span></td>
+                        <td><div class="rm-goal">SSCP — (ISC)²</div><div class="rm-sub">Systems security certified practitioner</div></td>
+                        <td><span class="badge badge-planned"><span class="badge-dot"></span>Planned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">15</span></td>
+                        <td><div class="rm-goal">CCSP Associate — (ISC)²</div><div class="rm-sub">Cloud security fundamentals</div></td>
+                        <td><span class="badge badge-planned"><span class="badge-dot"></span>Planned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">16</span></td>
+                        <td><div class="rm-goal">CompTIA PenTest+</div><div class="rm-sub">Penetration testing and vulnerability management</div></td>
+                        <td><span class="badge badge-planned"><span class="badge-dot"></span>Planned</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="phase-num">17</span></td>
+                        <td><div class="rm-goal">B.S. Cybersecurity &amp; Information Assurance — WGU</div><div class="rm-sub">All 16 certs above included at no additional cost</div></td>
+                        <td><span class="badge badge-progress"><span class="badge-dot"></span>Enrolled · Exp. 2027</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="roadmap-note fade-up">
+            <span>★ Auto-Earned</span> stackable certifications are awarded automatically by CompTIA upon completing the prerequisite exams — all included within the WGU B.S. program at no additional cost.
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact">
+    <div class="container">
+        <div class="section-header fade-up">
+            <p class="section-label">// connect</p>
+            <h2 class="section-title">Get In <span>Touch</span></h2>
+        </div>
+        <div class="contact-grid fade-up">
+            <div class="contact-info">
+                <h3>Let's Talk</h3>
+                <p>I'm actively pursuing entry-level IT and cybersecurity opportunities. Whether you're a hiring manager, recruiter, mentor, or fellow learner — I'd love to connect.</p>
+                <div class="open-to">
+                    <div class="open-to-label">Open to</div>
+                    <div class="open-to-chips">
+                        <span class="open-chip">Remote</span>
+                        <span class="open-chip">Hybrid — Houston area</span>
+                        <span class="open-chip">Help Desk</span>
+                        <span class="open-chip">SOC Tier 1</span>
+                        <span class="open-chip">Entry-Level IT</span>
+                        <span class="open-chip">Cybersecurity Analyst</span>
+                    </div>
+                </div>
+                <div class="contact-items">
+                    <div class="ci">
+                        <div class="ci-ico">
+                            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </div>
+                        <div>
+                            <div class="ci-label">Email</div>
+                            <div class="ci-val"><a href="mailto:kimearls24@outlook.com">kimearls24@outlook.com</a></div>
+                        </div>
+                    </div>
+                    <div class="ci">
+                        <div class="ci-ico">
+                            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div>
+                            <div class="ci-label">Location</div>
+                            <div class="ci-val">Houston, TX</div>
+                        </div>
+                    </div>
+                    <div class="ci">
+                        <div class="ci-ico">
+                            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </div>
+                        <div>
+                            <div class="ci-label">LinkedIn</div>
+                            <div class="ci-val"><a href="https://www.linkedin.com/in/kiaraearl/" target="_blank" rel="noopener">linkedin.com/in/kiaraearl</a></div>
+                        </div>
+                    </div>
+                    <div class="ci">
+                        <div class="ci-ico">
+                            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        </div>
+                        <div>
+                            <div class="ci-label">GitHub</div>
+                            <div class="ci-val"><a href="https://github.com/kiaraearl" target="_blank" rel="noopener">github.com/kiaraearl</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="fg">
+                            <label class="fl" for="fname">First Name</label>
+                            <input class="fi" type="text" id="fname" name="fname" placeholder="Jane" required>
+                        </div>
+                        <div class="fg">
+                            <label class="fl" for="lname">Last Name</label>
+                            <input class="fi" type="text" id="lname" name="lname" placeholder="Smith">
+                        </div>
+                    </div>
+                    <div class="fg">
+                        <label class="fl" for="email">Email</label>
+                        <input class="fi" type="email" id="email" name="email" placeholder="jane@company.com" required>
+                    </div>
+                    <div class="fg">
+                        <label class="fl" for="subject">Subject</label>
+                        <input class="fi" type="text" id="subject" name="subject" placeholder="Opportunity / Mentorship / Hello">
+                    </div>
+                    <div class="fg">
+                        <label class="fl" for="message">Message</label>
+                        <textarea class="ft" id="message" name="message" placeholder="Tell me about the opportunity or what's on your mind..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
+                        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+    <div class="container footer-inner">
+        <div class="footer-logo">KE<span style="color:var(--text-muted)">.sec</span></div>
+        <div class="footer-txt">Built by Kiara Earl · Houston, TX · 2026</div>
+        <div class="footer-socials">
+            <a href="https://github.com/kiaraearl" target="_blank" rel="noopener" class="social-btn" title="GitHub" aria-label="GitHub">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/kiaraearl/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn" aria-label="LinkedIn">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="mailto:kimearls24@outlook.com" class="social-btn" title="Email" aria-label="Email">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ── Navbar scroll ──
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+
+    // ── Hamburger ──
+    const hbg = document.getElementById('hamburger');
+    const mob = document.getElementById('mobileMenu');
+    hbg.addEventListener('click', () => { hbg.classList.toggle('open'); mob.classList.toggle('open'); });
+    document.querySelectorAll('.mob-link').forEach(l => l.addEventListener('click', () => {
+        hbg.classList.remove('open'); mob.classList.remove('open');
+    }));
+
+    // ── Typewriter ──
+    const roles = [
+        'IT & Cybersecurity Professional',
+        'CompTIA A+ Certified',
+        'Python Automation Developer',
+        'Incident Responder',
+        'WGU Cybersecurity Student'
+    ];
+    let ri = 0, ci = 0, del = false;
+    const tw = document.getElementById('typewriter');
+    function type() {
+        const cur = roles[ri];
+        tw.textContent = del ? cur.slice(0, --ci) : cur.slice(0, ++ci);
+        let ms = del ? 48 : 88;
+        if (!del && ci === cur.length) { ms = 2200; del = true; }
+        else if (del && ci === 0) { del = false; ri = (ri + 1) % roles.length; ms = 300; }
+        setTimeout(type, ms);
+    }
+    type();
+
+    // ── Scroll fade-up ──
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+                setTimeout(() => e.target.classList.add('visible'), i * 75);
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    // ── Active nav link ──
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+        let cur = '';
+        sections.forEach(s => { if (scrollY >= s.offsetTop - 110) cur = s.id; });
+        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${cur}`));
+    });
+
+    // ── Contact form → mailto ──
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = `${document.getElementById('fname').value} ${document.getElementById('lname').value}`.trim();
+        const from = document.getElementById('email').value;
+        const subj = document.getElementById('subject').value || 'Portfolio Inquiry';
+        const body = document.getElementById('message').value;
+        window.location.href = `mailto:kimearls24@outlook.com?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(`From: ${name} <${from}>\n\n${body}`)}`;
+    });
+</script>
+</body>
+</html>
