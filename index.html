@@ -435,6 +435,7 @@
                     <span class="skill-tag">Malware Detection</span><span class="skill-tag">Endpoint Remediation</span>
                     <span class="skill-tag">Incident Response (PICERL)</span><span class="skill-tag">BitLocker Encryption</span>
                     <span class="skill-tag">Safe Mode Recovery</span><span class="skill-tag">RAT Removal</span><span class="skill-tag">MITRE ATT&amp;CK</span>
+                    <span class="skill-tag">pfSense</span><span class="skill-tag">SSH Hardening</span><span class="skill-tag">UFW</span><span class="skill-tag">fail2ban</span>
                 </div>
             </div>
             <div class="skill-cat fade-up">
@@ -450,6 +451,7 @@
                     <span class="skill-tag">Apify</span><span class="skill-tag">Claude API</span><span class="skill-tag">Malwarebytes</span>
                     <span class="skill-tag">VirtualBox</span><span class="skill-tag">Packet Tracer</span>
                     <span class="skill-tag">Git / GitHub</span><span class="skill-tag">osTicket (planned)</span>
+                    <span class="skill-tag">pfSense CE</span><span class="skill-tag">fail2ban</span>
                 </div>
             </div>
             <div class="skill-cat fade-up">
@@ -564,31 +566,40 @@
 
         <!-- Home Lab -->
         <div class="fade-up">
-            <div class="lab-title">Home Lab — In Progress
+            <div class="lab-title">Home Lab — Active
                 <a href="https://github.com/kiaraearl/homelab-build" target="_blank" rel="noopener" class="proj-link" style="margin-left:auto" title="View on GitHub" aria-label="GitHub">
                     <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
                 </a>
             </div>
             <div class="lab-grid">
                 <div class="lab-card">
-                    <div class="lab-ico">🖥️</div>
-                    <div>
-                        <div class="lab-name">VirtualBox Environment</div>
-                        <div class="lab-desc">Building a personal cybersecurity lab with VirtualBox. Planned VMs include pfSense firewall, Ubuntu Server, and Windows Server for hands-on OS, networking, and security practice.</div>
-                    </div>
-                </div>
-                <div class="lab-card">
                     <div class="lab-ico">🔥</div>
                     <div>
-                        <div class="lab-name">pfSense Firewall VM</div>
-                        <div class="lab-desc">Planned: deploy pfSense as a virtual firewall to practice network segmentation, traffic filtering rules, and VLAN configuration in a safe isolated environment.</div>
+                        <div class="lab-name">Exp001 — pfSense Firewall Rules <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
+                        <div class="lab-desc">Replaced default allow-all firewall rules on pfSense CE with a minimal explicit ruleset following the principle of least privilege. Default deny architecture — only DNS (port 53), SSH (port 2222), and ICMP explicitly allowed.</div>
+                        <div class="project-tags" style="margin-top:10px">
+                            <span class="ptag">pfSense</span><span class="ptag">Default Deny</span><span class="ptag">Least Privilege</span><span class="ptag">Firewall Rules</span><span class="ptag">UFW</span>
+                        </div>
                     </div>
                 </div>
                 <div class="lab-card">
-                    <div class="lab-ico">🎯</div>
+                    <div class="lab-ico">🔐</div>
                     <div>
-                        <div class="lab-name">TryHackMe &amp; Packet Tracer</div>
-                        <div class="lab-desc">Working through the Pre-Security and SOC Level 1 paths on TryHackMe. Using Cisco Packet Tracer alongside Network+ studies for simulated network configuration practice.</div>
+                        <div class="lab-name">Exp002 — SSH Hardening <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
+                        <div class="lab-desc">Hardened SSH on Ubuntu Server 24.04 — moved to port 2222, disabled password authentication, enforced ed25519 key-only login, blocked root login, patched cloud-init override that was bypassing sshd_config settings.</div>
+                        <div class="project-tags" style="margin-top:10px">
+                            <span class="ptag">SSH</span><span class="ptag">Port 2222</span><span class="ptag">ed25519</span><span class="ptag">sshd_config</span><span class="ptag">Ubuntu</span><span class="ptag">UFW</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lab-card">
+                    <div class="lab-ico">🛡️</div>
+                    <div>
+                        <div class="lab-name">Exp003 — fail2ban Intrusion Prevention <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
+                        <div class="lab-desc">Deployed fail2ban on Ubuntu Server to dynamically ban IPs after 3 failed SSH attempts within 5 minutes. Configured custom jail.local, troubleshot duplicate sshd section config conflict, validated with live ban test. Ban fired on exactly the 3rd attempt within 4 seconds.</div>
+                        <div class="project-tags" style="margin-top:10px">
+                            <span class="ptag">fail2ban</span><span class="ptag">IPS</span><span class="ptag">SSH</span><span class="ptag">jail.local</span><span class="ptag">pyinotify</span><span class="ptag">UFW</span><span class="ptag">Dynamic Banning</span>
+                        </div>
                     </div>
                 </div>
             </div>
