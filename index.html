@@ -437,6 +437,7 @@
                     <span class="skill-tag">Safe Mode Recovery</span><span class="skill-tag">RAT Removal</span><span class="skill-tag">MITRE ATT&amp;CK</span>
                     <span class="skill-tag">pfSense</span><span class="skill-tag">SSH Hardening</span><span class="skill-tag">UFW</span><span class="skill-tag">fail2ban</span>
                     <span class="skill-tag">Splunk SIEM</span><span class="skill-tag">Linux Hardening</span><span class="skill-tag">Log Analysis</span>
+                    <span class="skill-tag">Nessus</span><span class="skill-tag">Vulnerability Scanning</span>
                 </div>
             </div>
             <div class="skill-cat fade-up">
@@ -454,7 +455,7 @@
                     <span class="skill-tag">VirtualBox</span><span class="skill-tag">Packet Tracer</span>
                     <span class="skill-tag">Git / GitHub</span><span class="skill-tag">osTicket (planned)</span>
                     <span class="skill-tag">pfSense CE</span><span class="skill-tag">fail2ban</span>
-                    <span class="skill-tag">Splunk Enterprise</span>
+                    <span class="skill-tag">Splunk Enterprise</span><span class="skill-tag">Nessus Essentials Plus</span>
                 </div>
             </div>
             <div class="skill-cat fade-up">
@@ -575,6 +576,10 @@
                     <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
                 </a>
             </div>
+            <div style="margin-bottom:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+                <span style="font-family:var(--mono);font-size:0.68rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-right:4px;">Stack →</span>
+                <span class="ptag">pfSense</span><span class="ptag">fail2ban</span><span class="ptag">Splunk</span><span class="ptag">Nessus Essentials Plus</span>
+            </div>
             <div class="lab-grid">
                 <div class="lab-card">
                     <div class="lab-ico">🔥</div>
@@ -613,6 +618,36 @@
                         <div class="lab-desc">Installed Splunk Enterprise on Windows host. Configured Universal Forwarder on Ubuntu to ship auth.log and fail2ban.log. Built SSH Attack Monitor dashboard and real-time alert that fires on ban events.</div>
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">Splunk</span><span class="ptag">SIEM</span><span class="ptag">Log Ingestion</span><span class="ptag">Dashboard</span><span class="ptag">Alerting</span><span class="ptag orange">SOC</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lab-card">
+                    <div class="lab-ico">🔍</div>
+                    <div>
+                        <div class="lab-name">Exp005 — Nessus Vulnerability Scanning <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
+                        <div class="lab-desc">Ran unauthenticated and credentialed vulnerability scans with Nessus Essentials Plus against the hardened Ubuntu Server. Zero critical, high, or medium findings — validating the full hardening stack.</div>
+                        <div class="project-tags" style="margin-top:10px">
+                            <span class="ptag">Nessus Essentials Plus</span><span class="ptag">Vulnerability Scanning</span><span class="ptag">Credentialed Scan</span><span class="ptag orange">0 Critical Findings</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:28px;">
+                <div class="lab-title" style="font-size:0.96rem;">Incident Reports
+                    <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>1 Report</span>
+                </div>
+                <div class="lab-grid">
+                    <div class="lab-card" style="background:rgba(183,110,121,0.06);border-color:rgba(183,110,121,0.22);">
+                        <div class="lab-ico">🚨</div>
+                        <div style="flex:1;">
+                            <div class="lab-name">IR-2026-001 — SSH Brute Force Attack <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Documented</span></div>
+                            <div class="lab-desc">Documented a simulated SSH brute force incident using the PICERL framework. Attacker blocked automatically by fail2ban in 4 seconds, detected by Splunk real-time alert.</div>
+                            <div class="project-tags" style="margin-top:10px;display:flex;align-items:center;flex-wrap:wrap;">
+                                <span class="ptag">PICERL</span><span class="ptag">fail2ban</span><span class="ptag">Splunk</span><span class="ptag orange">IR Report</span>
+                                <a href="https://github.com/kiaraearl/homelab-build/blob/main/incident-reports/IR-2026-001-SSH-BruteForce.pdf" target="_blank" rel="noopener" class="proj-link" style="margin-left:auto;flex-shrink:0;" title="View Report" aria-label="View Incident Report">
+                                    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
