@@ -439,6 +439,7 @@
                     <span class="skill-tag">Splunk SIEM</span><span class="skill-tag">Linux Hardening</span><span class="skill-tag">Log Analysis</span>
                     <span class="skill-tag">Nessus</span><span class="skill-tag">Vulnerability Scanning</span>
                     <span class="skill-tag">Active Directory</span><span class="skill-tag">Windows Server 2022</span><span class="skill-tag">Domain Controller</span><span class="skill-tag">Windows Event Log Monitoring</span>
+                    <span class="skill-tag">KQL</span><span class="skill-tag">Microsoft Sentinel</span><span class="skill-tag">Azure Arc</span><span class="skill-tag">Pi-hole</span><span class="skill-tag">DNS Filtering</span>
                 </div>
             </div>
             <div class="skill-cat fade-up">
@@ -457,6 +458,7 @@
                     <span class="skill-tag">Git / GitHub</span><span class="skill-tag">osTicket (planned)</span>
                     <span class="skill-tag">pfSense CE</span><span class="skill-tag">fail2ban</span>
                     <span class="skill-tag">Splunk Enterprise</span><span class="skill-tag">Nessus Essentials Plus</span><span class="skill-tag">Windows Server 2022</span>
+                    <span class="skill-tag">Microsoft Sentinel</span><span class="skill-tag">Azure Log Analytics</span><span class="skill-tag">Pi-hole</span>
                 </div>
             </div>
             <div class="skill-cat fade-up">
@@ -579,7 +581,30 @@
             </div>
             <div style="margin-bottom:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
                 <span style="font-family:var(--mono);font-size:0.68rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-right:4px;">Stack →</span>
-                <span class="ptag">pfSense</span><span class="ptag">fail2ban</span><span class="ptag">Splunk</span><span class="ptag">Nessus Essentials Plus</span><span class="ptag">Active Directory</span><span class="ptag">Windows Server 2022</span>
+                <span class="ptag">pfSense</span><span class="ptag">fail2ban</span><span class="ptag">Splunk</span><span class="ptag">Nessus Essentials Plus</span><span class="ptag">Active Directory</span><span class="ptag">Windows Server 2022</span><span class="ptag">Microsoft Sentinel</span><span class="ptag">Azure Arc</span><span class="ptag">KQL</span><span class="ptag">Pi-hole</span>
+            </div>
+            <div style="margin-bottom:20px;">
+                <div class="lab-title" style="font-size:0.88rem;margin-bottom:12px;">Lab Infrastructure
+                    <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>5 VMs</span>
+                </div>
+                <div style="overflow-x:auto;border-radius:var(--radius);border:1px solid rgba(192,98,42,0.2);">
+                    <table style="width:100%;border-collapse:collapse;background:rgba(192,98,42,0.03);">
+                        <thead>
+                            <tr>
+                                <th style="padding:10px 14px;text-align:left;font-family:var(--mono);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:#e07840;border-bottom:1px solid rgba(192,98,42,0.2);white-space:nowrap;">VM</th>
+                                <th style="padding:10px 14px;text-align:left;font-family:var(--mono);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:#e07840;border-bottom:1px solid rgba(192,98,42,0.2);white-space:nowrap;">IP</th>
+                                <th style="padding:10px 14px;text-align:left;font-family:var(--mono);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:#e07840;border-bottom:1px solid rgba(192,98,42,0.2);">Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="padding:9px 14px;font-size:0.8rem;color:var(--text);border-bottom:1px solid rgba(255,255,255,0.04);font-family:var(--mono);">pfSense</td><td style="padding:9px 14px;font-size:0.8rem;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.04);font-family:var(--mono);">192.168.56.2</td><td style="padding:9px 14px;font-size:0.8rem;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.04);">Firewall / Gateway</td></tr>
+                            <tr><td style="padding:9px 14px;font-size:0.8rem;color:var(--text);border-bottom:1px solid rgba(255,255,255,0.04);font-family:var(--mono);">Ubuntu-Server-01</td><td style="padding:9px 14px;font-size:0.8rem;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.04);font-family:var(--mono);">192.168.56.10</td><td style="padding:9px 14px;font-size:0.8rem;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.04);">Log forwarder, fail2ban, Splunk UF</td></tr>
+                            <tr><td style="padding:9px 14px;font-size:0.8rem;color:var(--text);border-bottom:1px solid rgba(255,255,255,0.04);font-family:var(--mono);">WinServer2022-DC01</td><td style="padding:9px 14px;font-size:0.8rem;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.04);font-family:var(--mono);">192.168.56.20</td><td style="padding:9px 14px;font-size:0.8rem;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.04);">Domain Controller, lab.local</td></tr>
+                            <tr><td style="padding:9px 14px;font-size:0.8rem;color:var(--text);border-bottom:1px solid rgba(255,255,255,0.04);font-family:var(--mono);">Win11-WS01</td><td style="padding:9px 14px;font-size:0.8rem;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.04);font-family:var(--mono);">192.168.56.30</td><td style="padding:9px 14px;font-size:0.8rem;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.04);">Domain-joined Windows 11 endpoint · RDP enabled</td></tr>
+                            <tr><td style="padding:9px 14px;font-size:0.8rem;color:var(--text);font-family:var(--mono);">Pihole-01</td><td style="padding:9px 14px;font-size:0.8rem;color:var(--text-muted);font-family:var(--mono);">192.168.56.40</td><td style="padding:9px 14px;font-size:0.8rem;color:var(--text-muted);">DNS sinkhole · 81,382+ domains blocked</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="lab-grid">
                 <div class="lab-card">
@@ -639,6 +664,26 @@
                         <div class="lab-desc">Deployed Windows Server 2022 as a Domain Controller. Installed AD DS, created lab.local domain, configured OUs (SOC_Team, IT_Admin, Workstations), provisioned domain users, and integrated Splunk Universal Forwarder to ship Windows Security Event logs — 304 events indexed including Event IDs 4624, 4634, and 4672.</div>
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">Active Directory</span><span class="ptag">Windows Server 2022</span><span class="ptag">AD DS</span><span class="ptag">Domain Controller</span><span class="ptag">Splunk Integration</span><span class="ptag orange">Windows Event Logs</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lab-card">
+                    <div class="lab-ico">☁️</div>
+                    <div>
+                        <div class="lab-name">Exp007 — Microsoft Azure + Microsoft Sentinel <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
+                        <div class="lab-desc">Connected on-premises Active Directory (DC01) to Azure via Azure Arc. Created a Log Analytics Workspace (LAW-SOCLab) and deployed Microsoft Sentinel. Configured a Data Collection Rule to stream Windows Security Events from DC01. Wrote KQL queries to detect brute force attempts and configured an analytics rule mapping to MITRE ATT&amp;CK T1110 (Brute Force) at High severity.</div>
+                        <div class="project-tags" style="margin-top:10px">
+                            <span class="ptag">Azure</span><span class="ptag">Microsoft Sentinel</span><span class="ptag">KQL</span><span class="ptag">Azure Arc</span><span class="ptag">MITRE ATT&amp;CK</span><span class="ptag orange">Cloud SIEM</span><span class="ptag orange">T1110</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lab-card">
+                    <div class="lab-ico">🛡️</div>
+                    <div>
+                        <div class="lab-name">Exp008 — Pi-hole DNS Sinkhole <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
+                        <div class="lab-desc">Deployed Pi-hole as a DNS sinkhole on a dedicated Ubuntu VM (Pihole-01, 192.168.56.40). Configured all lab VMs to use Pi-hole as their DNS server. Blocklist covers 81,382+ domains. Verified live DNS query logging showing traffic from WS01 (192.168.56.30) and host machine including blocked ad domains and whitelisted services.</div>
+                        <div class="project-tags" style="margin-top:10px">
+                            <span class="ptag">Pi-hole</span><span class="ptag">DNS Sinkhole</span><span class="ptag">Network Security</span><span class="ptag">DNS Filtering</span><span class="ptag">Ubuntu</span>
                         </div>
                     </div>
                 </div>
