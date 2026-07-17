@@ -581,7 +581,7 @@
             </div>
             <div style="margin-bottom:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
                 <span style="font-family:var(--mono);font-size:0.68rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-right:4px;">Stack →</span>
-                <span class="ptag">pfSense</span><span class="ptag">fail2ban</span><span class="ptag">Splunk</span><span class="ptag">Nessus Essentials Plus</span><span class="ptag">Active Directory</span><span class="ptag">Windows Server 2022</span><span class="ptag">Microsoft Sentinel</span><span class="ptag">Azure Arc</span><span class="ptag">KQL</span><span class="ptag">Pi-hole</span>
+                <span class="ptag">pfSense</span><span class="ptag">fail2ban</span><span class="ptag">Splunk</span><span class="ptag">Nessus Essentials Plus</span><span class="ptag">Active Directory</span><span class="ptag">Windows Server 2022</span><span class="ptag">Microsoft Sentinel</span><span class="ptag">Azure Arc</span><span class="ptag">KQL</span><span class="ptag">Pi-hole</span><span class="ptag">Wazuh</span>
             </div>
             <div style="margin-bottom:20px;">
                 <div class="lab-title" style="font-size:0.88rem;margin-bottom:12px;">Lab Infrastructure
@@ -684,6 +684,26 @@
                         <div class="lab-desc">Deployed Pi-hole as a DNS sinkhole on a dedicated Ubuntu VM (Pihole-01, 192.168.56.40). Configured all lab VMs to use Pi-hole as their DNS server. Blocklist covers 81,382+ domains. Verified live DNS query logging showing traffic from WS01 (192.168.56.30) and host machine including blocked ad domains and whitelisted services.</div>
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">Pi-hole</span><span class="ptag">DNS Sinkhole</span><span class="ptag">Network Security</span><span class="ptag">DNS Filtering</span><span class="ptag">Ubuntu</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lab-card">
+                    <div class="lab-ico">📋</div>
+                    <div>
+                        <div class="lab-name">Exp009 — CIC Incident Operations <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
+                        <div class="lab-desc">Simulated a Tier 1 CIC analyst response to INC0010007 — a brute-force alert correlated across Microsoft Sentinel and Splunk. Produced full incident lifecycle documentation: a SITREP, a non-technical executive summary, and a fail2ban service-restart runbook — modeling ServiceNow-style ticket workflow from detection to resolution in 50 minutes.</div>
+                        <div class="project-tags" style="margin-top:10px">
+                            <span class="ptag">SITREP</span><span class="ptag">Incident Response</span><span class="ptag">Runbook</span><span class="ptag">Executive Summary</span><span class="ptag orange">Tier 1 Triage</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lab-card">
+                    <div class="lab-ico">🔬</div>
+                    <div>
+                        <div class="lab-name">Exp010 — Wazuh EDR Deployment <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
+                        <div class="lab-desc">Deployed Wazuh as a self-hosted EDR/XDR platform (manager, indexer, and dashboard on Ubuntu-Server-01), enrolling both the Linux host and WS01 (Windows 11) as monitored agents. Validated File Integrity Monitoring, tuned brute-force detection to Rule 5712 with full MITRE ATT&amp;CK T1110 mapping, and configured Active Response to automatically firewall-block attacking IPs. Vulnerability Detection surfaced 7 critical / 219 high CVEs on WS01, cross-referenced against Exp005's Nessus findings.</div>
+                        <div class="project-tags" style="margin-top:10px">
+                            <span class="ptag">Wazuh</span><span class="ptag">EDR/XDR</span><span class="ptag">FIM</span><span class="ptag">Active Response</span><span class="ptag">MITRE ATT&amp;CK</span><span class="ptag orange">T1110</span>
                         </div>
                     </div>
                 </div>
