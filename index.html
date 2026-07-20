@@ -206,10 +206,10 @@
         .lab-found code { font-family:var(--mono); background:rgba(255,255,255,0.06); padding:1px 5px; border-radius:4px; font-size:0.92em; }
 
         /* ===== LIGHTBOX ===== */
-        .lightbox { position:fixed; inset:0; z-index:999; display:flex; align-items:center; justify-content:center; background:rgba(10,8,6,0.92); opacity:0; pointer-events:none; transition:opacity 0.25s ease; padding:60px 20px; }
+        .lightbox { position:fixed; inset:0; z-index:1001; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(10,8,6,0.92); opacity:0; pointer-events:none; transition:opacity 0.25s ease; padding:60px 20px; }
         .lightbox.open { opacity:1; pointer-events:auto; }
         .lightbox-img { max-width:min(1000px,90vw); max-height:74vh; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
-        .lightbox-caption { margin-top:14px; font-family:var(--mono); font-size:0.76rem; color:rgba(255,255,255,0.75); text-align:center; }
+        .lightbox-caption { position:absolute; top:18px; left:50%; transform:translateX(-50%); max-width:calc(100% - 140px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-family:var(--mono); font-size:0.76rem; color:#fff; background:rgba(0,0,0,0.55); padding:6px 16px; border-radius:20px; text-align:center; }
         .lightbox-close, .lightbox-prev, .lightbox-next { position:absolute; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); color:#fff; border-radius:50%; width:42px; height:42px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; cursor:pointer; transition:var(--tr); }
         .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover { background:rgba(255,255,255,0.18); }
         .lightbox-close { top:20px; right:20px; }
@@ -642,7 +642,7 @@
             </div>
             <div style="margin-bottom:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
                 <span style="font-family:var(--mono);font-size:0.68rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-right:4px;">Stack →</span>
-                <span class="ptag">pfSense</span><span class="ptag">fail2ban</span><span class="ptag">Splunk</span><span class="ptag">Nessus Essentials Plus</span><span class="ptag">Active Directory</span><span class="ptag">Windows Server 2022</span><span class="ptag">Microsoft Sentinel</span><span class="ptag">Azure Arc</span><span class="ptag">KQL</span><span class="ptag">Pi-hole</span><span class="ptag">Wazuh</span>
+                <span class="ptag">pfSense</span><span class="ptag">fail2ban</span><span class="ptag">Splunk</span><span class="ptag">Nessus Essentials Plus</span><span class="ptag">Active Directory</span><span class="ptag">Windows Server 2022</span><span class="ptag">Microsoft Sentinel</span><span class="ptag">Azure Arc</span><span class="ptag">KQL</span><span class="ptag">Pi-hole</span><span class="ptag">Wazuh</span><span class="ptag">Okta</span><span class="ptag">Zendesk</span>
             </div>
             <div class="stat-grid">
                 <div class="stat-tile"><div class="stat-num">13</div><div class="stat-label">Hands-on experiments</div></div>
