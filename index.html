@@ -185,9 +185,36 @@
         .lab-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; }
         .lab-card { background:rgba(192,98,42,0.05); border:1px solid rgba(192,98,42,0.14); border-radius:var(--radius); padding:18px; display:flex; gap:14px; align-items:flex-start; transition:var(--tr); }
         .lab-card:hover { border-color:rgba(192,98,42,0.34); background:rgba(192,98,42,0.09); transform:translateY(-3px); }
+        .lab-card.has-thumb { padding:0; overflow:hidden; flex-direction:column; }
+        .lab-thumb { position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; cursor:pointer; background:rgba(192,98,42,0.08); }
+        .lab-thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.35s ease; }
+        .lab-thumb:hover img { transform:scale(1.05); }
+        .lab-thumb::after { content:'🔍 View screenshots'; position:absolute; left:0; right:0; bottom:0; padding:6px 10px; font-family:var(--mono); font-size:0.66rem; letter-spacing:0.03em; color:#fff; background:linear-gradient(to top, rgba(0,0,0,0.65), transparent); opacity:0; transition:var(--tr); }
+        .lab-thumb:hover::after { opacity:1; }
+        .lab-thumb.single::after { content:'🔍 View screenshot'; }
+        .lab-body { display:flex; gap:14px; align-items:flex-start; padding:18px; }
         .lab-ico { font-size:1.45rem; flex-shrink:0; }
         .lab-name { font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:5px; }
         .lab-desc { font-size:0.78rem; color:var(--text-muted); line-height:1.62; }
+        .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:20px; }
+        .stat-tile { background:rgba(192,98,42,0.05); border:1px solid rgba(192,98,42,0.14); border-radius:var(--radius); padding:16px 14px; text-align:center; transition:var(--tr); }
+        .stat-tile:hover { border-color:rgba(192,98,42,0.34); background:rgba(192,98,42,0.09); transform:translateY(-3px); }
+        .stat-num { font-family:var(--mono); font-size:1.35rem; font-weight:700; color:#e07840; line-height:1.2; }
+        .stat-label { font-size:0.7rem; color:var(--text-muted); margin-top:5px; line-height:1.4; }
+        .lab-found { display:flex; gap:6px; align-items:flex-start; margin-top:11px; padding-top:11px; border-top:1px dashed rgba(192,98,42,0.18); font-size:0.73rem; color:var(--text-muted); line-height:1.55; }
+        .lab-found b { color:#e07840; font-weight:600; flex-shrink:0; }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox { position:fixed; inset:0; z-index:999; display:flex; align-items:center; justify-content:center; background:rgba(10,8,6,0.92); opacity:0; pointer-events:none; transition:opacity 0.25s ease; padding:60px 20px; }
+        .lightbox.open { opacity:1; pointer-events:auto; }
+        .lightbox-img { max-width:min(1000px,90vw); max-height:74vh; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
+        .lightbox-caption { margin-top:14px; font-family:var(--mono); font-size:0.76rem; color:rgba(255,255,255,0.75); text-align:center; }
+        .lightbox-close, .lightbox-prev, .lightbox-next { position:absolute; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); color:#fff; border-radius:50%; width:42px; height:42px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; cursor:pointer; transition:var(--tr); }
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover { background:rgba(255,255,255,0.18); }
+        .lightbox-close { top:20px; right:20px; }
+        .lightbox-prev { left:20px; top:50%; transform:translateY(-50%); }
+        .lightbox-next { right:20px; top:50%; transform:translateY(-50%); }
+        @media (max-width:640px) { .lightbox-prev { left:8px; } .lightbox-next { right:8px; } .lightbox-close { top:8px; right:8px; } }
 
         /* ===== TIMELINE ===== */
         .timeline { position:relative; padding-left:30px; }
@@ -441,6 +468,7 @@
                     <span class="skill-tag">Active Directory</span><span class="skill-tag">Windows Server 2022</span><span class="skill-tag">Domain Controller</span><span class="skill-tag">Windows Event Log Monitoring</span>
                     <span class="skill-tag">KQL</span><span class="skill-tag">Microsoft Sentinel</span><span class="skill-tag">Azure Arc</span><span class="skill-tag">Pi-hole</span><span class="skill-tag">DNS Filtering</span>
                     <span class="skill-tag">SITREP / Incident Documentation</span><span class="skill-tag">Wazuh</span><span class="skill-tag">EDR/XDR</span><span class="skill-tag">File Integrity Monitoring</span><span class="skill-tag">Active Response</span>
+                    <span class="skill-tag">SAML 2.0</span><span class="skill-tag">SSO</span><span class="skill-tag">Federated Identity</span><span class="skill-tag">IAM</span><span class="skill-tag">Access Provisioning</span><span class="skill-tag">Least Privilege</span>
                 </div>
             </div>
             <div class="skill-cat fade-up">
@@ -456,10 +484,11 @@
                 <div class="skill-tags">
                     <span class="skill-tag">Apify</span><span class="skill-tag">Claude API</span><span class="skill-tag">Malwarebytes</span>
                     <span class="skill-tag">VirtualBox</span><span class="skill-tag">Packet Tracer</span>
-                    <span class="skill-tag">Git / GitHub</span><span class="skill-tag">osTicket (planned)</span>
+                    <span class="skill-tag">Git / GitHub</span><span class="skill-tag">Zendesk</span>
                     <span class="skill-tag">pfSense CE</span><span class="skill-tag">fail2ban</span>
                     <span class="skill-tag">Splunk Enterprise</span><span class="skill-tag">Nessus Essentials Plus</span><span class="skill-tag">Windows Server 2022</span>
                     <span class="skill-tag">Microsoft Sentinel</span><span class="skill-tag">Azure Log Analytics</span><span class="skill-tag">Pi-hole</span><span class="skill-tag">Wazuh</span>
+                    <span class="skill-tag">Okta</span><span class="skill-tag">ServiceNow</span>
                 </div>
             </div>
             <div class="skill-cat fade-up">
@@ -467,6 +496,7 @@
                 <div class="skill-tags">
                     <span class="skill-tag">Technical Documentation</span><span class="skill-tag">SOP Writing</span>
                     <span class="skill-tag">Customer-Facing Support</span><span class="skill-tag">Regulatory Compliance</span>
+                    <span class="skill-tag">Ticket Lifecycle Documentation</span><span class="skill-tag">SLA Management</span><span class="skill-tag">Escalation Triage</span>
                 </div>
             </div>
         </div>
@@ -613,6 +643,14 @@
                 <span style="font-family:var(--mono);font-size:0.68rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-right:4px;">Stack →</span>
                 <span class="ptag">pfSense</span><span class="ptag">fail2ban</span><span class="ptag">Splunk</span><span class="ptag">Nessus Essentials Plus</span><span class="ptag">Active Directory</span><span class="ptag">Windows Server 2022</span><span class="ptag">Microsoft Sentinel</span><span class="ptag">Azure Arc</span><span class="ptag">KQL</span><span class="ptag">Pi-hole</span><span class="ptag">Wazuh</span>
             </div>
+            <div class="stat-grid">
+                <div class="stat-tile"><div class="stat-num">13</div><div class="stat-label">Hands-on experiments</div></div>
+                <div class="stat-tile"><div class="stat-num">81,382</div><div class="stat-label">Malicious/ad domains blocked</div></div>
+                <div class="stat-tile"><div class="stat-num">7 / 219</div><div class="stat-label">Critical / high CVEs found (Wazuh)</div></div>
+                <div class="stat-tile"><div class="stat-num">0</div><div class="stat-label">Critical findings post-hardening (Nessus)</div></div>
+                <div class="stat-tile"><div class="stat-num">4 sec</div><div class="stat-label">Automated ban time (fail2ban)</div></div>
+                <div class="stat-tile"><div class="stat-num">50 min</div><div class="stat-label">Incident detection → resolution</div></div>
+            </div>
             <div style="margin-bottom:20px;">
                 <div class="lab-title" style="font-size:0.88rem;margin-bottom:12px;">Lab Infrastructure
                     <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>5 VMs</span>
@@ -637,7 +675,11 @@
                 </div>
             </div>
             <div class="lab-grid">
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb single" data-gallery="exp001">
+                        <img src="images/labs/exp001/hero.webp" alt="Exp001 — pfSense Firewall Rules screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🔥</div>
                     <div>
                         <div class="lab-name">Exp001 — pfSense Firewall Rules <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -645,9 +687,15 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">pfSense</span><span class="ptag">Firewall Rules</span><span class="ptag">Network Segmentation</span><span class="ptag">Default Deny</span>
                         </div>
+                        <div class="lab-found"><b>Found:</b> pfSense ships with permissive allow-all rules by default — replaced with an explicit default-deny ruleset before anything else touched the network.</div>
+                    </div>
                     </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp002">
+                        <img src="images/labs/exp002/hero.webp" alt="Exp002 — SSH Hardening screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🔐</div>
                     <div>
                         <div class="lab-name">Exp002 — SSH Hardening <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -655,9 +703,15 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">SSH</span><span class="ptag">sshd_config</span><span class="ptag">ed25519</span><span class="ptag">Key Auth</span><span class="ptag">Linux Hardening</span>
                         </div>
+                        <div class="lab-found"><b>Found:</b> <code>UsePAM yes</code> silently overrides <code>PasswordAuthentication no</code> — both had to be set consistently or password auth stayed on unnoticed.</div>
+                    </div>
                     </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp003">
+                        <img src="images/labs/exp003/hero.webp" alt="Exp003 — fail2ban Intrusion Prevention screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🛡️</div>
                     <div>
                         <div class="lab-name">Exp003 — fail2ban Intrusion Prevention <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -665,9 +719,15 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">fail2ban</span><span class="ptag">Intrusion Prevention</span><span class="ptag">UFW</span><span class="ptag">Log Monitoring</span>
                         </div>
+                        <div class="lab-found"><b>Found:</b> a banned IP loses access immediately, including active sessions — staged console access before running the first live ban test.</div>
+                    </div>
                     </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp004">
+                        <img src="images/labs/exp004/hero.webp" alt="Exp004 — Splunk SIEM Log Ingestion screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">📊</div>
                     <div>
                         <div class="lab-name">Exp004 — Splunk SIEM Log Ingestion <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -675,9 +735,15 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">Splunk</span><span class="ptag">SIEM</span><span class="ptag">Log Ingestion</span><span class="ptag">Dashboard</span><span class="ptag">Alerting</span><span class="ptag orange">SOC</span>
                         </div>
+                        <div class="lab-found"><b>Found:</b> the receiving port (9997) was silently blocked by Windows Firewall — no events arrived until the rule was opened on the host.</div>
+                    </div>
                     </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp005">
+                        <img src="images/labs/exp005/hero.webp" alt="Exp005 — Nessus Vulnerability Scanning screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🔍</div>
                     <div>
                         <div class="lab-name">Exp005 — Nessus Vulnerability Scanning <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -685,9 +751,15 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">Nessus Essentials Plus</span><span class="ptag">Vulnerability Scanning</span><span class="ptag">Credentialed Scan</span><span class="ptag orange">0 Critical Findings</span>
                         </div>
+                        <div class="lab-found"><b>Found:</b> Nessus flagged port 22 as open during a scan pass — investigated and confirmed it was a scanner artifact, not a real open port. Verified rather than trusted.</div>
+                    </div>
                     </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp006">
+                        <img src="images/labs/exp006/hero.webp" alt="Exp006 — Active Directory Domain Services screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🏛️</div>
                     <div>
                         <div class="lab-name">Exp006 — Active Directory Domain Services <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -695,9 +767,15 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">Active Directory</span><span class="ptag">Windows Server 2022</span><span class="ptag">AD DS</span><span class="ptag">Domain Controller</span><span class="ptag">Splunk Integration</span><span class="ptag orange">Windows Event Logs</span>
                         </div>
+                        <div class="lab-found"><b>Found:</b> the documented <code>splunk add monitor WinEventLog://Security</code> CLI command doesn't work on Windows Universal Forwarder — had to hand-write <code>inputs.conf</code> directly instead.</div>
+                    </div>
                     </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp007">
+                        <img src="images/labs/exp007/hero.webp" alt="Exp007 — Microsoft Azure + Microsoft Sentinel screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">☁️</div>
                     <div>
                         <div class="lab-name">Exp007 — Microsoft Azure + Microsoft Sentinel <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -705,9 +783,15 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">Azure</span><span class="ptag">Microsoft Sentinel</span><span class="ptag">KQL</span><span class="ptag">Azure Arc</span><span class="ptag">MITRE ATT&amp;CK</span><span class="ptag orange">Cloud SIEM</span><span class="ptag orange">T1110</span>
                         </div>
+                        <div class="lab-found"><b>Found:</b> Azure Arc reported "Succeeded" in the portal while the monitor agent silently failed to register on the VM — resolved by verifying actual agent heartbeat instead of trusting portal status.</div>
+                    </div>
                     </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp008">
+                        <img src="images/labs/exp008/hero.webp" alt="Exp008 — Pi-hole DNS Sinkhole screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🛡️</div>
                     <div>
                         <div class="lab-name">Exp008 — Pi-hole DNS Sinkhole <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -715,9 +799,15 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">Pi-hole</span><span class="ptag">DNS Sinkhole</span><span class="ptag">Network Security</span><span class="ptag">DNS Filtering</span><span class="ptag">Ubuntu</span>
                         </div>
+                        <div class="lab-found"><b>Found:</b> the installer couldn't reach the internet over the Host-Only adapter — added a temporary NAT adapter and routed the install through it to complete setup.</div>
+                    </div>
                     </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp009">
+                        <img src="images/labs/exp009/hero.webp" alt="Exp009 — CIC Incident Operations screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">📋</div>
                     <div>
                         <div class="lab-name">Exp009 — CIC Incident Operations <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -726,8 +816,13 @@
                             <span class="ptag">SITREP</span><span class="ptag">Incident Response</span><span class="ptag">Runbook</span><span class="ptag">Executive Summary</span><span class="ptag orange">Tier 1 Triage</span>
                         </div>
                     </div>
+                    </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp010">
+                        <img src="images/labs/exp010/hero.webp" alt="Exp010 — Wazuh EDR Deployment screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🔬</div>
                     <div>
                         <div class="lab-name">Exp010 — Wazuh EDR Deployment <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -735,9 +830,15 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">Wazuh</span><span class="ptag">EDR/XDR</span><span class="ptag">FIM</span><span class="ptag">Active Response</span><span class="ptag">MITRE ATT&amp;CK</span><span class="ptag orange">T1110</span>
                         </div>
+                        <div class="lab-found"><b>Found:</b> the install failed mid-way on disk space exhaustion — resolved by live-resizing the LVM partition (<code>growpart</code> → <code>pvresize</code> → <code>lvextend</code>) without rebuilding the VM.</div>
+                    </div>
                     </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp011">
+                        <img src="images/labs/exp011/hero.webp" alt="Exp011 — SSO/SAML Dev Tenant Demo (Okta) screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🔑</div>
                     <div>
                         <div class="lab-name">Exp011 — SSO/SAML Dev Tenant Demo (Okta) <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -745,9 +846,15 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">SSO</span><span class="ptag">SAML 2.0</span><span class="ptag">Okta</span><span class="ptag orange">Identity Provider Config</span>
                         </div>
+                        <div class="lab-found"><b>Found:</b> an MFA enrollment stranded the account mid-activation with no clear error — resolved by installing Okta Verify's Windows desktop client instead of assuming mobile-only.</div>
+                    </div>
                     </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp012">
+                        <img src="images/labs/exp012/hero.webp" alt="Exp012 — IAM Access Request Workflow screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🪪</div>
                     <div>
                         <div class="lab-name">Exp012 — IAM Access Request Workflow (Onboarding &amp; Offboarding) <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -755,6 +862,24 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">IAM</span><span class="ptag">Access Provisioning</span><span class="ptag">Active Directory</span><span class="ptag">ServiceNow</span><span class="ptag orange">Deprovisioning</span>
                         </div>
+                        <div class="lab-found"><b>Found:</b> RDP login failed with "domain unavailable" despite a clean ping to the DC — root cause was DNS pointed at Pi-hole instead of the domain controller, not a network fault at all.</div>
+                    </div>
+                    </div>
+                </div>
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="exp013">
+                        <img src="images/labs/exp013/hero.webp" alt="Exp013 — Zendesk Support Operations Lab screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
+                    <div class="lab-ico">🎫</div>
+                    <div>
+                        <div class="lab-name">Exp013 — Zendesk Support Operations Lab <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
+                        <div class="lab-desc">Configured a Zendesk support environment from scratch — custom ticket fields/form, four views, a tiered SLA policy scoped to business hours, three escalation triggers, two time-based automations, four macros, and a published Help Center article. Simulated three full ticket lifecycles end-to-end (billing escalation, self-service resolution via KB article, urgent org-wide outage), surfacing and fixing real configuration bugs along the way — including a view logic error and a form field misconfiguration. Built to demonstrate Zendesk configuration-level fluency for a Technical Support Specialist role naming it as a required tool.</div>
+                        <div class="project-tags" style="margin-top:10px">
+                            <span class="ptag">Zendesk</span><span class="ptag">Ticketing</span><span class="ptag">SLA Management</span><span class="ptag">Escalation Automation</span><span class="ptag orange">Help Desk / SOC</span>
+                        </div>
+                        <div class="lab-found"><b>Found:</b> a view was built with two mutually exclusive Priority conditions under "Meet ALL" — logically impossible, so it would have matched zero tickets. Caught and fixed before going live.</div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -794,17 +919,26 @@
                 <span class="ptag">GRC</span><span class="ptag">HITRUST CSF</span><span class="ptag">NIST SP 800-53</span><span class="ptag">ServiceNow</span><span class="ptag">Vendor Risk Assessment</span><span class="ptag">Audit Evidence</span><span class="ptag">Security Assurance</span>
             </div>
             <div class="lab-grid">
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="grc01">
+                        <img src="images/labs/grc01/hero.webp" alt="GRC01 — HITRUST CSF Domain Mapping screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🗂️</div>
                     <div>
                         <div class="lab-name">GRC01 — HITRUST CSF Domain Mapping <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
-                        <div class="lab-desc">Crosswalk of existing home lab security controls against all 19 HITRUST CSF domains, mapping technical evidence to framework requirements.</div>
+                        <div class="lab-desc">Crosswalk of existing home lab security controls against all 19 HITRUST CSF domains, mapping technical evidence to framework requirements — 14 of 19 domains covered, with the remaining gaps disclosed rather than stretched to look complete.</div>
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">HITRUST CSF</span><span class="ptag">Control Mapping</span><span class="ptag">Audit Evidence</span>
                         </div>
                     </div>
+                    </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="grc02">
+                        <img src="images/labs/grc02/hero.webp" alt="GRC02 — Security Assurance Ticket Queue Simulation screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🎫</div>
                     <div>
                         <div class="lab-name">GRC02 — Security Assurance Ticket Queue Simulation <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -813,8 +947,13 @@
                             <span class="ptag">ServiceNow</span><span class="ptag">Ticket Triage</span><span class="ptag">Security Assurance</span>
                         </div>
                     </div>
+                    </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="grc03">
+                        <img src="images/labs/grc03/hero.webp" alt="GRC03 — Vendor Risk Assessment screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">🏢</div>
                     <div>
                         <div class="lab-name">GRC03 — Vendor Risk Assessment <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -823,8 +962,13 @@
                             <span class="ptag">Vendor Risk Assessment</span><span class="ptag">Gap Analysis</span><span class="ptag orange">Risk Tiering</span>
                         </div>
                     </div>
+                    </div>
                 </div>
-                <div class="lab-card">
+                <div class="lab-card has-thumb">
+                    <div class="lab-thumb" data-gallery="grc04">
+                        <img src="images/labs/grc04/hero.webp" alt="GRC04 — Security Documentation Repository screenshot" loading="lazy">
+                    </div>
+                    <div class="lab-body">
                     <div class="lab-ico">📚</div>
                     <div>
                         <div class="lab-name">GRC04 — Security Documentation Repository <span class="badge badge-earned" style="margin-left:8px"><span class="badge-dot"></span>Complete</span></div>
@@ -832,6 +976,7 @@
                         <div class="project-tags" style="margin-top:10px">
                             <span class="ptag">Documentation</span><span class="ptag">Evidence Index</span><span class="ptag">NIST SP 800-53</span>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -1114,6 +1259,14 @@
     </div>
 </footer>
 
+<div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Lab screenshot viewer">
+    <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
+    <button type="button" class="lightbox-prev" aria-label="Previous screenshot">&#8249;</button>
+    <img class="lightbox-img" src="" alt="">
+    <button type="button" class="lightbox-next" aria-label="Next screenshot">&#8250;</button>
+    <div class="lightbox-caption"></div>
+</div>
+
 <script>
     // ── Navbar scroll ──
     const nav = document.getElementById('navbar');
@@ -1175,6 +1328,88 @@
         const subj = document.getElementById('subject').value || 'Portfolio Inquiry';
         const body = document.getElementById('message').value;
         window.location.href = `mailto:kimearls24@outlook.com?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(`From: ${name} <${from}>\n\n${body}`)}`;
+    });
+
+    // ── Lab screenshot lightbox ──
+    const labGalleries = {
+        exp001: { title: 'Exp001 — pfSense Firewall Rules', images: ['images/labs/exp001/hero.webp'] },
+        exp002: { title: 'Exp002 — SSH Hardening', images: ['images/labs/exp002/hero.webp', 'images/labs/exp002/2.webp'] },
+        exp003: { title: 'Exp003 — fail2ban Intrusion Prevention', images: ['images/labs/exp003/hero.webp', 'images/labs/exp003/2.webp', 'images/labs/exp003/3.webp'] },
+        exp004: { title: 'Exp004 — Splunk SIEM Log Ingestion', images: ['images/labs/exp004/hero.webp', 'images/labs/exp004/2.webp', 'images/labs/exp004/3.webp', 'images/labs/exp004/4.webp'] },
+        exp005: { title: 'Exp005 — Nessus Vulnerability Scanning', images: ['images/labs/exp005/hero.webp', 'images/labs/exp005/2.webp', 'images/labs/exp005/3.webp', 'images/labs/exp005/4.webp'] },
+        exp006: { title: 'Exp006 — Active Directory Domain Services', images: ['images/labs/exp006/hero.webp', 'images/labs/exp006/2.webp', 'images/labs/exp006/3.webp', 'images/labs/exp006/4.webp'] },
+        exp007: { title: 'Exp007 — Microsoft Azure + Microsoft Sentinel', images: ['images/labs/exp007/hero.webp', 'images/labs/exp007/2.webp', 'images/labs/exp007/3.webp', 'images/labs/exp007/4.webp'] },
+        exp008: { title: 'Exp008 — Pi-hole DNS Sinkhole', images: ['images/labs/exp008/hero.webp', 'images/labs/exp008/2.webp', 'images/labs/exp008/3.webp'] },
+        exp009: { title: 'Exp009 — CIC Incident Operations', images: ['images/labs/exp009/hero.webp', 'images/labs/exp009/2.webp'] },
+        exp010: { title: 'Exp010 — Wazuh EDR Deployment', images: ['images/labs/exp010/hero.webp', 'images/labs/exp010/2.webp', 'images/labs/exp010/3.webp', 'images/labs/exp010/4.webp'] },
+        exp011: { title: 'Exp011 — SSO/SAML Dev Tenant Demo (Okta)', images: ['images/labs/exp011/hero.webp', 'images/labs/exp011/2.webp', 'images/labs/exp011/3.webp', 'images/labs/exp011/4.webp'] },
+        exp012: { title: 'Exp012 — IAM Access Request Workflow', images: ['images/labs/exp012/hero.webp', 'images/labs/exp012/2.webp', 'images/labs/exp012/3.webp', 'images/labs/exp012/4.webp'] },
+        exp013: { title: 'Exp013 — Zendesk Support Operations Lab', images: ['images/labs/exp013/hero.webp', 'images/labs/exp013/2.webp', 'images/labs/exp013/3.webp', 'images/labs/exp013/4.webp'] },
+        grc01: { title: 'GRC01 — HITRUST CSF Domain Mapping', images: ['images/labs/grc01/hero.webp', 'images/labs/grc01/2.webp', 'images/labs/grc01/3.webp'] },
+        grc02: { title: 'GRC02 — Security Assurance Ticket Queue Simulation', images: ['images/labs/grc02/hero.webp', 'images/labs/grc02/2.webp', 'images/labs/grc02/3.webp', 'images/labs/grc02/4.webp'] },
+        grc03: { title: 'GRC03 — Vendor Risk Assessment', images: ['images/labs/grc03/hero.webp', 'images/labs/grc03/2.webp', 'images/labs/grc03/3.webp'] },
+        grc04: { title: 'GRC04 — Security Documentation Repository', images: ['images/labs/grc04/hero.webp', 'images/labs/grc04/2.webp'] }
+    };
+
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = lightbox.querySelector('.lightbox-img');
+    const lbCaption = lightbox.querySelector('.lightbox-caption');
+    const lbPrev = lightbox.querySelector('.lightbox-prev');
+    const lbNext = lightbox.querySelector('.lightbox-next');
+    const lbClose = lightbox.querySelector('.lightbox-close');
+    let lbImages = [];
+    let lbTitle = '';
+    let lbIndex = 0;
+
+    function lbRender() {
+        lbImg.src = lbImages[lbIndex];
+        lbImg.alt = `${lbTitle} — screenshot ${lbIndex + 1} of ${lbImages.length}`;
+        lbCaption.textContent = `${lbTitle} — ${lbIndex + 1} / ${lbImages.length}`;
+        const multi = lbImages.length > 1;
+        lbPrev.style.display = multi ? 'flex' : 'none';
+        lbNext.style.display = multi ? 'flex' : 'none';
+    }
+
+    function lbOpen(key) {
+        const g = labGalleries[key];
+        if (!g) return;
+        lbImages = g.images;
+        lbTitle = g.title;
+        lbIndex = 0;
+        lbRender();
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function lbCloseFn() {
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    function lbNextFn() { lbIndex = (lbIndex + 1) % lbImages.length; lbRender(); }
+    function lbPrevFn() { lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length; lbRender(); }
+
+    document.querySelectorAll('.lab-thumb[data-gallery]').forEach(el => {
+        el.setAttribute('tabindex', '0');
+        el.setAttribute('role', 'button');
+        el.setAttribute('aria-label', 'View lab screenshots');
+        el.addEventListener('click', () => lbOpen(el.getAttribute('data-gallery')));
+        el.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lbOpen(el.getAttribute('data-gallery')); }
+        });
+    });
+
+    lbClose.addEventListener('click', lbCloseFn);
+    lbNext.addEventListener('click', lbNextFn);
+    lbPrev.addEventListener('click', lbPrevFn);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lbCloseFn(); });
+    document.addEventListener('keydown', e => {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') lbCloseFn();
+        if (e.key === 'ArrowRight') lbNextFn();
+        if (e.key === 'ArrowLeft') lbPrevFn();
     });
 </script>
 </body>
